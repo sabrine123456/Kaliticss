@@ -34,11 +34,10 @@ class PointagesController extends AbstractController
         $pointage = new Pointages();
         $form = $this->createForm(PointagesType::class, $pointage);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($pointage);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Pointage ajouté');
             return $this->redirectToRoute('pointages_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -68,7 +67,7 @@ class PointagesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
+            $this->addFlash('success', 'Pointage modifié');
             return $this->redirectToRoute('pointages_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -86,6 +85,7 @@ class PointagesController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$pointage->getId(), $request->request->get('_token'))) {
             $entityManager->remove($pointage);
             $entityManager->flush();
+            $this->addFlash('danger', 'Pointage supprimé');
         }
 
         return $this->redirectToRoute('pointages_index', [], Response::HTTP_SEE_OTHER);

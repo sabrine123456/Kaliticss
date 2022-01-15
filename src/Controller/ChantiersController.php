@@ -73,7 +73,7 @@ class ChantiersController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
+            $this->addFlash('success', 'Chantier modifié');
             return $this->redirectToRoute('chantiers_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -91,6 +91,7 @@ class ChantiersController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$chantier->getId(), $request->request->get('_token'))) {
             $entityManager->remove($chantier);
             $entityManager->flush();
+            $this->addFlash('danger', 'Chantier supprimé');
         }
 
         return $this->redirectToRoute('chantiers_index', [], Response::HTTP_SEE_OTHER);
