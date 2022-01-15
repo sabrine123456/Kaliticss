@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier chantiers{% endblock %}
+
+{% block body %}
+    <h1>Modifier chantiers</h1>
+
+    {{ include('chantiers/_form.html.twig', {'button_label': 'Modifier'}) }}
+    {{ include('chantiers/_delete_form.html.twig') }}
+{% endblock %}
